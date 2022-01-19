@@ -253,8 +253,11 @@
                     {% if consul_acl_agent_master_token | trim != '' %}
                     "agent_master": "{{ consul_acl_agent_master_token }}",
                     {% endif %}
-                    {% if consul_version is version_compare('0.9.1', '<') or consul_acl_master_token | trim != '' %}
+                    {% if consul_version is version_compare('1.11.0', '<') or consul_acl_master_token | trim != '' %}
                     "master": "{{ consul_acl_master_token }}",
+                    {% endif %}
+                    {% if consul_version is version_compare('1.11.0', '>=') and consul_acl_master_token | trim != '' %}
+                    "initial_management": "{{ consul_acl_master_token }}",
                     {% endif %}
                     {% if consul_acl_replication_token | trim != '' %}
                     "replication": "{{ consul_acl_replication_token }}",
